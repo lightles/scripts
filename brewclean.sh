@@ -6,4 +6,5 @@ brew bundle --force cleanup --file=~/.cache/brew/BrewBundleFile;
 brew cleanup -s;
 brew doctor;
 brew missing;
+upgrade_oh_my_zsh;
 echo "Cleanup Finished!" | terminal-notifier -sound default
