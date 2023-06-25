@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/opt/homebrew/bin/zsh
 
 case $1 in
   -h|--help)
@@ -8,15 +8,15 @@ case $1 in
 esac
 (( $# )) && { echo "ARGUMENT ERROR: Unexpected argument(s) specified. Use -h for help." >&2; exit 2; }
 
-[[ $(uname) == 'Darwin' ]] || { echo "This function only runs on macOS." >&2; exit 2; }
+
+#curl -X POST -H 'Content-Type: application/json' -d '{ "openContainerView": true }' -kiv --unix-socket ~/Library/Containers/com.docker.docker/Data/backend.sock http://localhost/engine/stop
+
+echo "-- Stopping all Docker containers.."
+docker container run -d -p 80:8000 -v ${PWD}:/projects ci-dev-container:3.9.11
 
 echo "-- Quitting Docker.app, if running..."
+pkill Docker
 
-osascript - <<'EOF' || exit
-tell application "Docker"
-  if it is running then quit it
-end tell
-EOF
 
-echo "-- Docker is stopped."
-echo "Caveat: Restarting it too quickly can cause errors."
+echo "Docker is stopped." 
+echo "Docker is stopped." | terminal-notifier -sound default -title Docker #-appIcon $HOME/scripts/terminal_notifier_icons/docker.png 

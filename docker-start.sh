@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/opt/homebrew/bin/zsh
+
 case $1 in
   -h|--help)
     echo $'usage: docker-start\n\nStarts Docker (Docker.app) on macOS and waits until the Docker environment is initialized.'
@@ -21,5 +22,6 @@ while ! docker system info &>/dev/null; do
 done
 (( i )) && printf '\n'
 
-echo "-- Docker is ready."
+echo "Docker is ready."
+echo "Docker is ready." | terminal-notifier -sound default -title Docker #-appIcon $HOME/scripts/terminal_notifier_icons/docker.png 
 
